@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+	<title>Blood Request - Blood Donors</title>
+	<!-- links  -->
+	{% include 'ELEMENTS/head_links.html' %}
+	<!-- end links  -->
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+    <!-- NAVIGATION BAR  -->
+    {% include 'ELEMENTS/navigation.html' %}
+    <!-- NAVIGATION BAR END  -->
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+            <!-- TOP NAVBAR  -->
+				{% include 'ELEMENTS/top_navbar.html' %}
+            <!-- TOP NAVBAR END  -->
+                <div class="container-fluid">
+                    <h3 class="text-dark mb-4">Blood Requests</h3>
+                    <div class="card shadow">
+                        <div class="card-header py-3">
+                            <p class="text-primary m-0 fw-bold">Blood Requests</p>
+                        </div>
+                        <div class="card-body text-capitalize">
+                            <div class="row">
+                                <div class="col-md-6 text-nowrap">
+                                    <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable">
+                                        <label class="form-label">Show&nbsp;
+                                            <select class="d-inline-block form-select form-select-sm">
+                                                <option value="10" selected="">10</option>
+                                                <option value="25">25</option>
+                                                <option value="50">50</option>
+                                                <option value="100">100</option>
+                                            </select>&nbsp;
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="text-md-end dataTables_filter" id="dataTable_filter">
+                                        <label class="form-label">
+                                            <input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive table mt-2" id="dataTable" role="grid"
+                                aria-describedby="dataTable_info">
+                                <table class="table my-0" id="dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Reason</th>
+                                            <th>Location</th>
+                                            <th>Age</th>
+                                            <th>Asked Date</th>
+                                            <th>Donate</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><img class="rounded-circle me-2" width="30" height="30"
+                                                    src="assets/img/avatars/avatar1.jpeg">Sita Sharma</td>
+                                            <td class="text-capitalize">Blood cancer</td>
+                                            <td>Jhapa</td>
+                                            <td>33</td>
+                                            <td>2022/01/28</td>
+                                            <td class="btn-danger btn mt-1 mb-1"
+                                                style="background: #ff4a4a;border: 1px solid #ff4a4a;width: 100%;">
+                                                Donate</td>
+                                        </tr>
+                                        <tr>
+                                            <td><img class="rounded-circle me-2" width="30" height="30"
+                                                    src="assets/img/avatars/avatar2.jpeg">&nbsp;Divya Jaiswal</td>
+                                            <td class="text-capitalize">Loss of blood</td>
+                                            <td>Kathmandu</td>
+                                            <td>47</td>
+                                            <td>2021/10/09<br></td>
+                                            <td>Donated</td>
+                                        </tr>
+                                        <tr>
+                                            <td><img class="rounded-circle me-2" width="30" height="30"
+                                                    src="assets/img/avatars/avatar4.jpeg">Bradley Greer</td>
+                                            <td class="text-capitalize">Anemia</td>
+                                            <td>Janakpur</td>
+                                            <td>41</td>
+                                            <td>2021/10/13<br></td>
+                                            <td>Donated</td>
+                                        </tr>
+                                        <tr>
+                                            <td><img class="rounded-circle me-2" width="30" height="30"
+                                                    src="assets/img/avatars/avatar5.jpeg">Bhogendra Jha</td>
+                                            <td>Leukocytosis</td>
+                                            <td>Sindhuli</td>
+                                            <td>28</td>
+                                            <td>2021/06/07<br></td>
+                                            <td>Donated</td>
+                                        </tr>
+                                        <tr>
+                                            <td><img class="rounded-circle me-2" width="30" height="30"
+                                                    src="assets/img/avatars/avatar1.jpeg">Shyam sharma</td>
+                                            <td>Hemophilia</td>
+                                            <td>Syangja</td>
+                                            <td>61</td>
+                                            <td>2022/02/02<br></td>
+                                            <td class="btn-danger btn mt-1 mb-1"
+                                                style="background: #ff4a4a;border: 1px solid #ff4a4a;width: 100%;">
+                                                Donate</td>
+                                        </tr>
+                                        <tr>
+                                            <td><img class="rounded-circle me-2" width="30" height="30"
+                                                    src="assets/img/avatars/avatar2.jpeg">Lokshanti</td>
+                                            <td>Accidental Case</td>
+                                            <td>Koteshwar</td>
+                                            <td>38</td>
+                                            <td>2022/03/03<br></td>
+                                            <td class="btn-danger btn mt-1 mb-1"
+                                                style="background: #ff4a4a;border: 1px solid #ff4a4a;width: 100%;">
+                                                Donate</td>
+                                        </tr>
+                                        <tr>
+                                            <td><img class="rounded-circle me-2" width="30" height="30"
+                                                    src="assets/img/avatars/avatar3.jpeg">Shahastra&nbsp;</td>
+                                            <td>Blood Cancer</td>
+                                            <td>Kalanki</td>
+                                            <td>21</td>
+                                            <td>2021/12/12<br></td>
+                                            <td>Donated</td>
+                                        </tr>
+                                        <tr>
+                                            <td><img class="rounded-circle me-2" width="30" height="30"
+                                                    src="assets/img/avatars/avatar4.jpeg">Nandani Chaudhary</td>
+                                            <td>Anemia</td>
+                                            <td>Pokhara</td>
+                                            <td>46</td>
+                                            <td>2021/11/06<br></td>
+                                            <td>Donated</td>
+                                        </tr>
+                                        <tr>
+                                            <td><img class="rounded-circle me-2" width="30" height="30"
+                                                    src="assets/img/avatars/avatar5.jpeg">Harish Chandra</td>
+                                            <td>Blood Cancer</td>
+                                            <td>Tanahu</td>
+                                            <td>22</td>
+                                            <td>2022/03/29<br></td>
+                                            <td class="btn-danger btn mt-1 mb-1"
+                                                style="background: #ff4a4a;border: 1px solid #ff4a4a;width: 100%;">
+                                                Donate</td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td><strong>Name</strong></td>
+                                            <td><strong>Reason</strong></td>
+                                            <td><strong>Location</strong></td>
+                                            <td><strong>Age</strong></td>
+                                            <td><strong>Asked Date</strong></td>
+                                            <td><strong>Donate</strong></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 align-self-center">
+                                    <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">
+                                        Showing 1 to 10 of 27</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <nav
+                                        class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
+                                        <ul class="pagination">
+                                            <li class="page-item disabled"><a class="page-link" href="#"
+                                                    aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                            <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span
+                                                        aria-hidden="true">»</span></a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="bg-white sticky-footer">
+                <div class="container my-auto">
+                    <div class="text-center my-auto copyright"><span>Copyright © Blood Donor 2022</span></div>
+                </div>
+            </footer>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+    <!-- scripts -->
+    {% include 'ELEMENTS/scripts.html' %}
+    <!-- scripts end -->
+</body>
+
+</html>
