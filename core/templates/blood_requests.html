@@ -20,14 +20,16 @@
             <!-- TOP NAVBAR  -->
 				{% include 'ELEMENTS/top_navbar.html' %}
             <!-- TOP NAVBAR END  -->
+           
                 <div class="container-fluid">
                     <h3 class="text-dark mb-4">Blood Requests</h3>
+                    
                     <div class="card shadow">
                         <div class="card-header py-3">
                             <p class="text-primary m-0 fw-bold">Blood Requests</p>
                         </div>
                         <div class="card-body text-capitalize">
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="col-md-6 text-nowrap">
                                     <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable">
                                         <label class="form-label">Show&nbsp;
@@ -47,7 +49,7 @@
                                         </label>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="table-responsive table mt-2" id="dataTable" role="grid"
                                 aria-describedby="dataTable_info">
                                 <table class="table my-0" id="dataTable">
@@ -55,122 +57,80 @@
                                         <tr>
                                             <th>Name</th>
                                             <th>Reason</th>
+                                            <th>Blood Group</th>
                                             <th>Location</th>
                                             <th>Age</th>
                                             <th>Asked Date</th>
                                             <th>Donate</th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {% load humanize %}
+                                        {% for item in blood_request_list %}
+                        
                                         <tr>
-                                            <td><img class="rounded-circle me-2" width="30" height="30"
-                                                    src="assets/img/avatars/avatar1.jpeg">Sita Sharma</td>
-                                            <td class="text-capitalize">Blood cancer</td>
-                                            <td>Jhapa</td>
-                                            <td>33</td>
-                                            <td>2022/01/28</td>
+                                            <td>&nbsp; {{item.first_name }} {{item.last_name}} </td>
+                                            <td class="text-capitalize">{{ item.reason }}</td>
+                                            <td class="text-capitalize">{{item.blood_group}}</td>
+                                            <td>{{ item.address }}</td>
+                                            <td>{{ item.Age }}</td>
+                                            <!-- time in format of July 17, 2022 -->
+                                            <td>{{ item.time | naturalday}}</td>
                                             <td class="btn-danger btn mt-1 mb-1"
-                                                style="background: #ff4a4a;border: 1px solid #ff4a4a;width: 100%;">
+                                                style="background: #ff4a4a;border: 1px solid #ff4a4a;width: 100%;" id="donate-{{item.id}}" data-bs-toggle="modal" data-bs-target="#exampleModal-{{item.id}}">
                                                 Donate</td>
+                                                <!-- when clicked on donate pop up will appear -->
+                                                <!-- Button trigger modal --> 
+                                                <!-- Button trigger modal -->
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal-{{item.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="background-color: white;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Info</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="card shadow">
+                <div class="card-header py-3">
+                    <p class="text-primary m-0 fw-bold">Report</p>
+                </div>
+                <div class="card-body">
+                    <a href="{{ item.report.url }}" target="_blank">
+                   <img src="{{item.report.url}}" alt="" style="width: 100%;height:100%;">
+                </a>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+          <button type="button" class="btn btn-alert" style="background: #ff4a4a;color:white;">
+            <input type="hidden" name="use" value="{{ request.user.id }}">
+            <a href="{% url 'email_send' %}?id={{item.id}}" style="color:white;text-decoration: none;"> Send My Info </a>
+        </button>
+        </div>
+      </div>
+    </div>
+  </div>
                                         </tr>
-                                        <tr>
-                                            <td><img class="rounded-circle me-2" width="30" height="30"
-                                                    src="assets/img/avatars/avatar2.jpeg">&nbsp;Divya Jaiswal</td>
-                                            <td class="text-capitalize">Loss of blood</td>
-                                            <td>Kathmandu</td>
-                                            <td>47</td>
-                                            <td>2021/10/09<br></td>
-                                            <td>Donated</td>
-                                        </tr>
-                                        <tr>
-                                            <td><img class="rounded-circle me-2" width="30" height="30"
-                                                    src="assets/img/avatars/avatar4.jpeg">Bradley Greer</td>
-                                            <td class="text-capitalize">Anemia</td>
-                                            <td>Janakpur</td>
-                                            <td>41</td>
-                                            <td>2021/10/13<br></td>
-                                            <td>Donated</td>
-                                        </tr>
-                                        <tr>
-                                            <td><img class="rounded-circle me-2" width="30" height="30"
-                                                    src="assets/img/avatars/avatar5.jpeg">Bhogendra Jha</td>
-                                            <td>Leukocytosis</td>
-                                            <td>Sindhuli</td>
-                                            <td>28</td>
-                                            <td>2021/06/07<br></td>
-                                            <td>Donated</td>
-                                        </tr>
-                                        <tr>
-                                            <td><img class="rounded-circle me-2" width="30" height="30"
-                                                    src="assets/img/avatars/avatar1.jpeg">Shyam sharma</td>
-                                            <td>Hemophilia</td>
-                                            <td>Syangja</td>
-                                            <td>61</td>
-                                            <td>2022/02/02<br></td>
-                                            <td class="btn-danger btn mt-1 mb-1"
-                                                style="background: #ff4a4a;border: 1px solid #ff4a4a;width: 100%;">
-                                                Donate</td>
-                                        </tr>
-                                        <tr>
-                                            <td><img class="rounded-circle me-2" width="30" height="30"
-                                                    src="assets/img/avatars/avatar2.jpeg">Lokshanti</td>
-                                            <td>Accidental Case</td>
-                                            <td>Koteshwar</td>
-                                            <td>38</td>
-                                            <td>2022/03/03<br></td>
-                                            <td class="btn-danger btn mt-1 mb-1"
-                                                style="background: #ff4a4a;border: 1px solid #ff4a4a;width: 100%;">
-                                                Donate</td>
-                                        </tr>
-                                        <tr>
-                                            <td><img class="rounded-circle me-2" width="30" height="30"
-                                                    src="assets/img/avatars/avatar3.jpeg">Shahastra&nbsp;</td>
-                                            <td>Blood Cancer</td>
-                                            <td>Kalanki</td>
-                                            <td>21</td>
-                                            <td>2021/12/12<br></td>
-                                            <td>Donated</td>
-                                        </tr>
-                                        <tr>
-                                            <td><img class="rounded-circle me-2" width="30" height="30"
-                                                    src="assets/img/avatars/avatar4.jpeg">Nandani Chaudhary</td>
-                                            <td>Anemia</td>
-                                            <td>Pokhara</td>
-                                            <td>46</td>
-                                            <td>2021/11/06<br></td>
-                                            <td>Donated</td>
-                                        </tr>
-                                        <tr>
-                                            <td><img class="rounded-circle me-2" width="30" height="30"
-                                                    src="assets/img/avatars/avatar5.jpeg">Harish Chandra</td>
-                                            <td>Blood Cancer</td>
-                                            <td>Tanahu</td>
-                                            <td>22</td>
-                                            <td>2022/03/29<br></td>
-                                            <td class="btn-danger btn mt-1 mb-1"
-                                                style="background: #ff4a4a;border: 1px solid #ff4a4a;width: 100%;">
-                                                Donate</td>
-                                        </tr>
+                                     
+                                        {% endfor %}
+                                        
                                     </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <td><strong>Name</strong></td>
-                                            <td><strong>Reason</strong></td>
-                                            <td><strong>Location</strong></td>
-                                            <td><strong>Age</strong></td>
-                                            <td><strong>Asked Date</strong></td>
-                                            <td><strong>Donate</strong></td>
-                                        </tr>
-                                    </tfoot>
+                                    
                                 </table>
                             </div>
                             <div class="row">
-                                <div class="col-md-6 align-self-center">
+                                <!-- <div class="col-md-6 align-self-center">
                                     <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">
                                         Showing 1 to 10 of 27</p>
-                                </div>
+                                </div> -->
                                 <div class="col-md-6">
-                                    <nav
+                                    <!-- <nav
                                         class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
                                         <ul class="pagination">
                                             <li class="page-item disabled"><a class="page-link" href="#"
@@ -181,20 +141,19 @@
                                             <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span
                                                         aria-hidden="true">»</span></a></li>
                                         </ul>
-                                    </nav>
+                                    </nav> -->
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <footer class="bg-white sticky-footer">
-                <div class="container my-auto">
-                    <div class="text-center my-auto copyright"><span>Copyright © Blood Donor 2022</span></div>
-                </div>
-            </footer>
+           {% include 'ELEMENTS/footer.html' %}
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
+    <!-- popup model -->
+      <!-- Modal -->
+ 
     <!-- scripts -->
     {% include 'ELEMENTS/scripts.html' %}
     <!-- scripts end -->

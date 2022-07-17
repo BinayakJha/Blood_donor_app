@@ -18,179 +18,190 @@
 			{% include 'ELEMENTS/top_navbar.html' %}
             <div class="container">
                 <div class="col">
-                    <div class="card shadow mb-3">
-                        <div class="card-header py-3">
-                            <p class="text-primary m-0 fw-bold">Blood Donor Form</p>
-                        </div>
-                        <div class="card-body">
-                            <form>
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="mb-3">
-                                            <label class="form-label" for="username">
-                                                <strong>Your Name</strong>
-                                            </label>
-                                                <input class="form-control" type="text" id="username" placeholder="Ram Bahadhur" name="username">
+                    <form method="post" enctype="multipart/form-data" action="{% url 'blood_request_form_submit' %}">
+                        {% csrf_token %}
+                        {{ form.media }}
+                        <div class="card shadow mb-3">
+                            <div class="card-header py-3">
+                                <p class="text-primary m-0 fw-bold">Blood Donor Form</p>
+                            </div>
+                            <div class="card-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="id_name">
+                                                    <strong>Your Name</strong>
+                                                </label>
+                                                    <input class="form-control" type="text" id="id_name" placeholder="Ram Bahadhur" name="name" required>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="id_email">
+                                                    <strong>Email Address</strong>
+                                                </label>
+                                                <input class="form-control" type="email" id="id_email" placeholder="user@example.com" name="email">
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col">
-                                        <div class="mb-3">
-                                            <label class="form-label" for="email">
-                                                <strong>Email Address</strong>
-                                            </label>
-                                            <input class="form-control" type="email" id="email" placeholder="user@example.com" name="email">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="id_first_name">
+                                                    <strong>First Name of the patient</strong>
+                                                </label>
+                                                    <input class="form-control" type="text" id="id_first_name" placeholder="John" name="first_name">
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="mb-3">
-                                            <label class="form-label" for="first_name">
-                                                <strong>First Name of the patient</strong>
-                                            </label>
-                                                <input class="form-control" type="text" id="first_name" placeholder="John" name="first_name">
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="mb-3">
-                                            <label class="form-label" for="last_name">
-                                                <strong>Last Name of the patient</strong>
-                                            </label>
-                                                <input class="form-control" type="text" id="last_name" placeholder="Doe" name="last_name"></div>
-                                        </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="mb-3">
-                                            <label class="form-label" for="age">
-                                                <strong>Age</strong>
-                                            </label>
-                                                <input class="form-control" type="text" id="age" placeholder="25" name="age">
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <!-- blood group  -->
-                                        <div class="mb-3">
-                                            <label class="form-label" for="blood_group">
-                                                <strong>Blood Group</strong>
-                                            </label>
-                                            <select class="form-control" id="blood_group" name="blood_group">
-                                                <option value="A+">A+</option>
-                                                <option value="A-">A-</option>
-                                                <option value="B+">B+</option>
-                                                <option value="B-">B-</option>
-                                                <option value="AB+">AB+</option>
-                                                <option value="AB-">AB-</option>
-                                                <option value="O+">O+</option>
-                                                <option value="O-">O-</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </form>
-                        </div>
-                    </div>
-                    <div class="card shadow">
-                        <div class="card-header py-3">
-                            <p class="text-primary m-0 fw-bold">Contact Info</p>
-                        </div>
-                        <div class="card-body">
-                            <form>
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="mb-3">
-                                            <label class="form-label" for="address">
-                                                <strong>Address</strong>
-                                            </label>
-                                            <input class="form-control" type="text" id="address" placeholder="Your Address" name="address">
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="mb-3">
-                                            <label class="form-label" for="country">
-                                                <strong>Province</strong>
-                                            </label>
-                                               <!-- options -->
-                                                <select class="form-control" id="country" name="country">
-                                                    <option value="">Select Province</option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">Gandaki Pradesh</option>
-                                                    <option value="5">5</option>
-                                                    <option value="6">Karnali Pradesh</option>
-                                                    <option value="7">Sudurpashchim Pradesh</option>
-                                                </select>
-                                            <!-- end options -->
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="mb-3">
-                                            <label class="form-label" for="city">
-                                                <strong>City</strong>
-                                            </label>
-                                            <input class="form-control" type="text" id="city" placeholder="Kathmandu" name="city">
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="mb-3">
-                                            <label class="form-label" for="country">
-                                                <strong>Country (Only available in Nepal for now)</strong>
-                                            </label>
-                                                <input class="form-control" type="text" id="country" placeholder="Nepal" name="country" value="Nepal" readonly >
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="id_last_name">
+                                                    <strong>Last Name of the patient</strong>
+                                                </label>
+                                                    <input class="form-control" type="text" id="id_last_name" placeholder="Doe" name="last_name"></div>
                                             </div>
                                     </div>
-                                </div>
-                                
-                            </form>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="card shadow">
-                        <div class="card-header py-3">
-                            <p class="text-primary m-0 fw-bold">Validity Info</p>
-                        </div>
-                        <div class="card-body">
-                            <form>
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="mb-3">
-                                            <label class="form-label" for="address">
-                                                <strong>Medical Report ( For Conformation Only) </strong>
-                                            </label>
-                                            <!-- medical report upload only jpg, png-->
-                                            <input type="file" name="file" id="file" class="form-control" onchange="validateFile()">
-                                            <script>
-                                                function validateFile() {
-                                                    var file = document.getElementById("file").value;
-                                                    var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
-                                                    if (!allowedExtensions.exec(file)) {
-                                                        alert('Please upload file having extensions .jpeg/.jpg/.png only.');
-                                                        document.getElementById("file").value = "";
-                                                        return false;
-                                                    }
-                                                    else {
-                                                        return true;
-                                                    }
-                                                }
-
-                                            </script>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="id_Age">
+                                                    <strong>Age</strong>
+                                                </label>
+                                                    <input class="form-control" type="text" id="id_Age" placeholder="25" name="Age">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <!-- blood group  -->
+                                            <div class="mb-3">
+                                                <label class="form-label" for="id_blood_group">
+                                                    <strong>Blood Group</strong>
+                                                </label>
+                                                <select class="form-control" id="id_blood_group" name="blood_group">
+                                                    <option value="A+">A+</option>
+                                                    <option value="A-">A-</option>
+                                                    <option value="B+">B+</option>
+                                                    <option value="B-">B-</option>
+                                                    <option value="AB+">AB+</option>
+                                                    <option value="AB-">AB-</option>
+                                                    <option value="O+">O+</option>
+                                                    <option value="O-">O-</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
-                                   
-                                <div class="mb-3">
-                                    <button class="btn btn-primary btn-md" type="submit" style="background: #e02244;border:1px solid red;">
-                                        Submit Request
-                                    </button>
-                                </div>
-                            </form>
+                            </div>
                         </div>
-                    </div>
+                        <div class="card shadow">
+                            <div class="card-header py-3">
+                                <p class="text-primary m-0 fw-bold">Contact Info</p>
+                            </div>
+                            <div class="card-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="id_address">
+                                                    <strong>Address</strong>
+                                                </label>
+                                                <input class="form-control" type="text" id="id_address" placeholder="Your Address" name="address">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="id_province">
+                                                    <strong>Province</strong>
+                                                </label>
+                                                <!-- options -->
+                                                    <select class="form-control" id="id_province" name="province">
+                                                        <option value="">Select Province</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="Gandaki Province">Gandaki Pradesh</option>
+                                                        <option value="5">5</option>
+                                                        <option value="Karnali Province">Karnali Pradesh</option>
+                                                        <option value="Sudurpashchim Province">Sudurpashchim Pradesh</option>
+                                                    </select>
+                                                <!-- end options -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="id_city">
+                                                    <strong>City</strong>
+                                                </label>
+                                                <input class="form-control" type="text" id="id_city" placeholder="Kathmandu" name="city">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="country">
+                                                    <strong>Country (Only available in Nepal for now)</strong>
+                                                </label>
+                                                    <input class="form-control" type="text" id="country" placeholder="Nepal" name="country" value="Nepal" readonly >
+                                                </div>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="card shadow">
+                            <div class="card-header py-3">
+                                <p class="text-primary m-0 fw-bold">Validity Info</p>
+                            </div>
+                            <div class="card-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="id_report">
+                                                    <strong>Medical Report ( For Conformation Only) </strong>
+                                                </label>
+                                                <!-- medical report upload only jpg, png-->
+                                                <input type="file" name="report" id="id_report" class="form-control" onchange="validateFile()">
+                                                <script>
+                                                    function validateFile() {
+                                                        var file = document.getElementById("file").value;
+                                                        var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+                                                        if (!allowedExtensions.exec(file)) {
+                                                            alert('Please upload file having extensions .jpeg/.jpg/.png only.');
+                                                            document.getElementById("file").value = "";
+                                                            return false;
+                                                        }
+                                                        else {
+                                                            return true;
+                                                        }
+                                                    }
+
+                                                </script>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="mb-3">
+                                                    <label class="form-label" for="id_reason">
+                                                        <strong> Reason </strong>
+                                                    </label>
+                                                    <input class="form-control" id="id_reason" placeholder=" for eg: Blood Cancer " name="reason" >
+                                                </div>
+                                            </div>
+                                    <div class="mb-3">
+                                        {% csrf_token %}
+                                        <button class="btn btn-primary btn-md" type="submit" style="background: #e02244;border:1px solid red;">
+                                            Submit Request
+                                            
+                                        </button>
+                                    </div>
+                            </div>
+                        </div>
+                </form>
                 </div>
             </div>
         </div>
+        {% include 'ELEMENTS/footer.html' %}
+     <!-- scripts -->
+     {% include 'ELEMENTS/scripts.html' %}
+     <!-- scripts end -->
+
 </body>
 </html>

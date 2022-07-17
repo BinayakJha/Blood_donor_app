@@ -1,12 +1,21 @@
+import email
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User 
 from django.contrib import messages 
 from django.contrib.auth import authenticate, login, logout
 from numpy import logical_not
+from django.core.files.storage import FileSystemStorage
+from django.conf import settings
+from requests import request
+from .forms import *
+from django.core.mail import EmailMessage, send_mail
 # Create your views here.
 class Tabs:
     def index(self):
-        return render(self, 'blood_requests.html')
+        blood_request_list = Blood_form.objects.all()
+        context = {'blood_request_list': blood_request_list}
+        return render(self, 'blood_requests.html', context)
     def blood_requests(self):
         return render(self, 'blood_requests.html')
     def profile(self):
@@ -16,7 +25,9 @@ class Tabs:
     def register(self):
         return render(self, 'register.html')
     def blood_request_form(self):
-        return render(self, 'blood_request_form.html')
+        form  =  Blood_Donor_Form()
+        context = {'form': form}
+        return render(self, 'blood_request_form.html', context)
 
 class Authentication:
     #---------------------------------------------------------------------------------
@@ -67,4 +78,63 @@ class Authentication:
     def logout(self):
         logout(self)
         return redirect('/')
-        
+    
+class BloodRequests:
+    def form_function(request):
+        if request.method == "POST":
+            form = Blood_Donor_Form(request.POST, request.FILES)
+            if form.is_valid():
+                print("valid")
+                form.save()
+                # send email to the user that the request has been received and we will contact you if someone contacts you
+                email_send = EmailMessage(
+                    'Blood Request',
+                    'Your blood request has been received. We have already sent the request to all the active donors. We will contact if someone accepts your request.',
+                    settings.EMAIL_HOST_USER,
+                    [request.POST['email']],
+                    headers = {'Reply-To': settings.EMAIL_HOST_USER}
+                )
+                email_send.send()
+                # now to all the donors
+                email_list = User.objects.all()
+            # get the email addresses from the database
+                for em in email_list:
+                    try:
+                        print(em.username)
+                        email_send_2 = EmailMessage(
+                        'Blood Request',
+                        'New Blood Request ! Please go to http://localhost:2500 to see the request.',
+                        settings.EMAIL_HOST_USER,
+                        [em.email],
+                        reply_to=[settings.EMAIL_HOST_USER],
+                        headers = {'Message-ID': 'foo'},
+                        )
+                        email_send_2.sub_type = 'html'
+                        email_send_2.send()
+                    except:
+                        print("error")
+                        
+                return HttpResponseRedirect('/')
+            else:
+                print("Error")
+        else:
+            print("Error")
+            return HttpResponseRedirect('/')
+    def send_info_email(self):
+        # get the logged in user info
+        us = self.POST['use']
+        print(us)
+        email2 = Blood_Donor_Form.objects.all( id = self.POST['id'])
+        email_send = EmailMessage(
+                'Blood Request Accepted',
+                'Your blood request has been accepted. The contact info of the donor is : \n Name: ' + us.email + '\n Email: ' + us.username + ' ' ,
+                settings.EMAIL_HOST_USER,
+                [email2.email],
+                reply_to=[settings.EMAIL_HOST_USER],
+                headers = {'Message-ID': 'foo'},
+        ).send()
+        return HttpResponseRedirect('/')
+
+                
+
+            

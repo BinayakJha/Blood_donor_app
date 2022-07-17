@@ -14,9 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
 from core import views
+from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     # add the views from core app
@@ -29,6 +31,8 @@ urlpatterns = [
     path('signup_success/', views.Authentication.signup, name='signup_success'),
     path('logout/', views.Authentication.logout, name='logout'),
     path('blood_request_form/', views.Tabs.blood_request_form, name='blood_request_form'),
+    path('blood_request_form_submit/', views.BloodRequests.form_function, name='blood_request_form_submit'),
+    path('email_send/', views.BloodRequests.send_info_email, name='email_send'),
+
     
-    
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
