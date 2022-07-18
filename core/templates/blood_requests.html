@@ -68,7 +68,7 @@
                                     <tbody>
                                         {% load humanize %}
                                         {% for item in blood_request_list %}
-                        
+
                                         <tr>
                                             <td>&nbsp; {{item.first_name }} {{item.last_name}} </td>
                                             <td class="text-capitalize">{{ item.reason }}</td>
@@ -80,6 +80,7 @@
                                             <td class="btn-danger btn mt-1 mb-1"
                                                 style="background: #ff4a4a;border: 1px solid #ff4a4a;width: 100%;" id="donate-{{item.id}}" data-bs-toggle="modal" data-bs-target="#exampleModal-{{item.id}}">
                                                 Donate</td>
+                                        </tr>
                                                 <!-- when clicked on donate pop up will appear -->
                                                 <!-- Button trigger modal --> 
                                                 <!-- Button trigger modal -->
@@ -87,7 +88,7 @@
   
   <!-- Modal -->
   <div class="modal fade" id="exampleModal-{{item.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="background-color: white;">
+    <div class="modal-dialog" style="background-color: white;border-radius:4.7px;">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Info</h5>
@@ -118,51 +119,53 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <form action="{% url 'email_send' %}" method="POST">
+            <form action="{% url 'email_send' %}" method="POST" class="id_ajax_upload_form">
                 {% csrf_token %}
-                <input type="hidden" name="use" value="{{ request.user.id }}">
-                <input type="hidden" name="requester_id" value="{{ item.id }}">
+               
+                    <input type="hidden" name="use" value="{{ request.user.id }}">
+                    <input type="hidden" name="requester_id" value="{{ item.id }}">
                 {% csrf_token %}
-                    <button type="submit" class="btn btn-alert" style="background: #ff4a4a;color:white;">
+                    <button type="submit" class="btn btn-alert" style="background: #ff4a4a;color:white;" id="donate-{{item.id}}">
                         Send My Info
                     </button>
+                    
             </form> 
         </div>
       </div>
     </div>
   </div>
     </tr>
-                                     
-                                        {% endfor %}
-                                        
-                                    </tbody>
-                                    
-                                </table>
-                            </div>
-                            <div class="row">
-                                <!-- <div class="col-md-6 align-self-center">
-                                    <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">
-                                        Showing 1 to 10 of 27</p>
-                                </div> -->
-                                <div class="col-md-6">
-                                    <!-- <nav
-                                        class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
-                                        <ul class="pagination">
-                                            <li class="page-item disabled"><a class="page-link" href="#"
-                                                    aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                            <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span
-                                                        aria-hidden="true">»</span></a></li>
-                                        </ul>
-                                    </nav> -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        
+        {% endfor %}
+        
+    </tbody>
+    
+</table>
+</div>
+            <div class="row">
+                <!-- <div class="col-md-6 align-self-center">
+                    <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">
+                        Showing 1 to 10 of 27</p>
+                </div> -->
+                <div class="col-md-6">
+                    <!-- <nav
+                        class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
+                        <ul class="pagination">
+                            <li class="page-item disabled"><a class="page-link" href="#"
+                                    aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span
+                                        aria-hidden="true">»</span></a></li>
+                        </ul>
+                    </nav> -->
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+</div>
            {% include 'ELEMENTS/footer.html' %}
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
@@ -172,6 +175,35 @@
     <!-- scripts -->
     {% include 'ELEMENTS/scripts.html' %}
     <!-- scripts end -->
+    <!-- send mail in tha backend using ajax -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+         $('.id_ajax_upload_form').submit(function (e) {
+            e.preventDefault();
+            var form = $(this);
+            var formData = new FormData(this);
+
+            $.ajax({
+                url: form.attr('action'),
+                type: form.attr('method'),
+                data: formData,
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    location.reload();
+                }
+            });
+            // and show a message that mail has been sent
+            alert("Mail has been sent");
+            // reload page
+            
+
+
+        });
+
+    </script>
+
 </body>
 
 </html>

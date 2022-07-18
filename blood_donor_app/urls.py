@@ -33,6 +33,7 @@ urlpatterns = [
     path('blood_request_form/', views.Tabs.blood_request_form, name='blood_request_form'),
     path('blood_request_form_submit/', views.BloodRequests.form_function, name='blood_request_form_submit'),
     path('email_send/', views.BloodRequests.send_info_email, name='email_send'),
+    # path('delete_blood_request/', views.BloodRequests.delete_request, name='delete_blood_request'),
 
     
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

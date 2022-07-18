@@ -1,5 +1,5 @@
 import email
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User 
 from django.contrib import messages 
@@ -114,12 +114,13 @@ class BloodRequests:
                     except:
                         print("error")
                         
-                return HttpResponseRedirect('/')
+                return JsonResponse({'status': 'success'})
             else:
                 print("Error")
         else:
             print("Error")
             return HttpResponseRedirect('/')
+
     def send_info_email(request):
         # get the logged in user info
         user = request.POST['use']
@@ -146,7 +147,18 @@ class BloodRequests:
                 reply_to=[settings.EMAIL_HOST_USER],
                 headers = {'Message-ID': 'foo'},
         ).send()
-        return HttpResponseRedirect('/')
+        Blood_form.objects.get(id=email2.id).delete()
+        return JsonResponse({'status': 'success'})
+
+        # delete the request from the database after it has been accepted
+    def delete_request(request):
+        # get the accepted request post 
+        request_id = request.POST['requester_id']
+        request_id = int(request_id)
+        # delete the request from the database
+        Blood_form.objects.get(id=request_id).delete()
+        return JsonResponse({'status': 'success'})
+
 
                 
 

@@ -18,7 +18,7 @@
 			{% include 'ELEMENTS/top_navbar.html' %}
             <div class="container">
                 <div class="col">
-                    <form method="post" enctype="multipart/form-data" action="{% url 'blood_request_form_submit' %}">
+                    <form method="post" enctype="multipart/form-data" action="{% url 'blood_request_form_submit' %}"  id="id_ajax_upload_form">
                         {% csrf_token %}
                         {{ form.media }}
                         <div class="card shadow mb-3">
@@ -100,9 +100,9 @@
                                         <div class="col">
                                             <div class="mb-3">
                                                 <label class="form-label" for="id_address">
-                                                    <strong>Address</strong>
+                                                    <strong>Hospital Address</strong>
                                                 </label>
-                                                <input class="form-control" type="text" id="id_address" placeholder="Your Address" name="address">
+                                                <input class="form-control" type="text" id="id_address" placeholder="Hospital Address" name="address">
                                             </div>
                                         </div>
                                         <div class="col">
@@ -202,6 +202,28 @@
      <!-- scripts -->
      {% include 'ELEMENTS/scripts.html' %}
      <!-- scripts end -->
+     <script>
+         $('#id_ajax_upload_form').submit(function (e) {
+            e.preventDefault();
+            var form = $(this);
+            var formData = new FormData(this);
+
+            $.ajax({
+                url: form.attr('action'),
+                type: form.attr('method'),
+                data: formData,
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    
+                }
+            });
+            // go to the home page 
+            window.location.href = "/";
+
+        });
+     </script>
 
 </body>
 </html>
