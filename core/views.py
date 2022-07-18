@@ -120,16 +120,29 @@ class BloodRequests:
         else:
             print("Error")
             return HttpResponseRedirect('/')
-    def send_info_email(self):
+    def send_info_email(request):
         # get the logged in user info
-        us = self.POST['use']
-        print(us)
-        email2 = Blood_Donor_Form.objects.all( id = self.POST['id'])
+        user = request.POST['use']
+        user = int(user)
+        user_info = User.objects.get(id=user)
+
+        # print(use)
+        email2 = Blood_form.objects.get( id = request.POST['requester_id'])
+        # this email will be send to the requester email
         email_send = EmailMessage(
                 'Blood Request Accepted',
-                'Your blood request has been accepted. The contact info of the donor is : \n Name: ' + us.email + '\n Email: ' + us.username + ' ' ,
+                'Your blood request has been accepted. The contact info of the donor is : \n Name: ' + user_info.email + '\n Email: ' + user_info.username + ' ' ,
                 settings.EMAIL_HOST_USER,
                 [email2.email],
+                reply_to=[settings.EMAIL_HOST_USER],
+                headers = {'Message-ID': 'foo'},
+        ).send()
+        # also the requester info will go to the donor
+        email_send = EmailMessage(
+                'Blood Requester Info',
+                'The info of the requester of the blood request you accepted is : \nName: ' + str(email2.first_name) + ' ' + str(email2.last_name)  + '\nEmail: ' +str( email2.email) +'\nHospital Address: '+ str(email2.address) + '\nAge: ' + str(email2.Age) + '\nBlood Group of the patient: ' + str(email2.blood_group) + '\nReason for the request: ' + str(email2.reason) + ' ' ,
+                settings.EMAIL_HOST_USER,
+                [user_info.username],
                 reply_to=[settings.EMAIL_HOST_USER],
                 headers = {'Message-ID': 'foo'},
         ).send()

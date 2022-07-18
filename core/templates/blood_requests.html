@@ -104,19 +104,34 @@
                 </a>
                 </div>
             </div>
+            <br>
+            <!-- jusr show the ........@gmail.com  -->
+            <div class="card shadow">
+                <div class="card-header py-3">
+                    <p class="text-primary m-0 fw-bold">Email</p>
+                </div>
+                <div class="card-body">
+                    <p>{{item.email}}</p>
+                </div>
+            </div>
+
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-
-          <button type="button" class="btn btn-alert" style="background: #ff4a4a;color:white;">
-            <input type="hidden" name="use" value="{{ request.user.id }}">
-            <a href="{% url 'email_send' %}?id={{item.id}}" style="color:white;text-decoration: none;"> Send My Info </a>
-        </button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <form action="{% url 'email_send' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="use" value="{{ request.user.id }}">
+                <input type="hidden" name="requester_id" value="{{ item.id }}">
+                {% csrf_token %}
+                    <button type="submit" class="btn btn-alert" style="background: #ff4a4a;color:white;">
+                        Send My Info
+                    </button>
+            </form> 
         </div>
       </div>
     </div>
   </div>
-                                        </tr>
+    </tr>
                                      
                                         {% endfor %}
                                         
