@@ -34,6 +34,9 @@ urlpatterns = [
     path('blood_request_form_submit/', views.BloodRequests.form_function, name='blood_request_form_submit'),
     path('email_send/', views.BloodRequests.send_info_email, name='email_send'),
     # path('delete_blood_request/', views.BloodRequests.delete_request, name='delete_blood_request'),
-
+    path('edit_extra/', views.Tabs.user_extra_contact, name='edit_extra'),
+    path('edit_extra_submit/', views.User_Extra_Info.user_extra_info, name='edit_extra_submit'),
     
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += [path('silk/', include('silk.urls', namespace='silk'))]

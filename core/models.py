@@ -1,6 +1,7 @@
 from pyexpat import model
 from django.db import models
-
+# import user 
+from django.contrib.auth.models import User
 # Create your models here.
 
 class Blood_form(models.Model):
@@ -27,3 +28,13 @@ class Blood_form(models.Model):
     
 
 
+class User_extra_contact(models.Model):
+    id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    phone_number = models.IntegerField()
+    address = models.CharField(max_length=50)
+    province = models.CharField(max_length=50)
+    city = models.CharField(max_length=50)
+    blood_group = models.CharField(max_length=50, default=None)
+    def __str__(self):
+        return self.user.username

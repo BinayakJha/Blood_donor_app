@@ -28,6 +28,13 @@ class Tabs:
         form  =  Blood_Donor_Form()
         context = {'form': form}
         return render(self, 'blood_request_form.html', context)
+    def user_extra_contact(self):
+        form  =  User_extra_contact_form()
+        idd = self.POST.get('request_id')
+        print(idd)
+        data =  User_extra_contact.objects.get(id = idd)
+        context = {'form': form, 'data': data}
+        return render(self, 'edit_extra.html', context)
 
 class Authentication:
     #---------------------------------------------------------------------------------
@@ -42,6 +49,7 @@ class Authentication:
         confirm_password = self.POST['confirm_password']
         first_name = self.POST['fname']
         last_name = self.POST['lname']
+
         if password == confirm_password:
             if User.objects.filter(username=username).exists():
                 messages.info(self, 'Username already taken')
@@ -157,7 +165,19 @@ class BloodRequests:
         request_id = int(request_id)
         # delete the request from the database
         Blood_form.objects.get(id=request_id).delete()
+        print("deleted")
         return JsonResponse({'status': 'success'})
+
+class User_Extra_Info:
+    def user_extra_info(self):
+        if self.method == 'POST':
+            form = User_extra_contact_form(self.POST)
+            if form.is_valid():
+                form.instance.user = self.user
+                form.save()
+                return redirect('/')
+            else:
+                return redirect('/')
 
 
                 
