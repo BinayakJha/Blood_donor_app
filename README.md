@@ -1,5 +1,5 @@
 # Blood donor_app (Beta)
-## **The problem Blood Donation App - Save Lives solves**
+## **The problem Blood Donation App - Save Lives **
 
 <img src="https://user-images.githubusercontent.com/69071769/187081899-116c8e90-2b2b-4e81-bf0f-3bf23628bdd2.png">
 
